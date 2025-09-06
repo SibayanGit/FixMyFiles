@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FixMyFiles - Download</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<style>
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+body.bg-fade { animation: fadeIn 1.2s ease-out forwards; }
+.modal-bg { background-color: rgba(0,0,0,0.5); }
+</style>
+<body class="m-0 p-0 font-[Montserrat] bg-gray-100 bg-fade">
+
+<header class="w-full h-[70px] fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md border-b border-black/10 flex items-center justify-between px-6 z-[1000] shadow-md">
+  <a href="/" title="FixMyFiles">
+    <img src="/FixMyFIles/assets/icons/branding/logo.png" alt="FixMyFiles" class="h-[50px] w-auto" />
+  </a>
+</header>
+
+<section class="text-center mt-24 py-12 px-4">
+  <h2 class="text-4xl font-bold text-gray-800 mb-2">Download Your Resized Files</h2>
+  <p class="text-gray-600 mb-6">Click on any file to see its new dimensions before downloading.</p>
+</section>
+
+<main class="mx-auto px-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  <template id="file-card-template">
+    <div class="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center cursor-pointer hover:shadow-xl transition file-card">
+      <img class="h-32 w-auto object-contain mb-4 preview-img" src="" alt="File Preview">
+      <p class="text-gray-800 font-semibold mb-2 truncate w-full text-center filename"></p>
+      <p class="text-gray-500 text-sm original-size"></p>
+    </div>
+  </template>
+</main>
+
+<!-- Modal -->
+<div id="modal" class="fixed inset-0 hidden items-center justify-center modal-bg z-[2000]">
+  <div class="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full relative">
+    <button id="closeModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">&times;</button>
+    <img id="modal-img" class="h-48 w-auto object-contain mb-4 mx-auto">
+    <p class="text-gray-800 font-semibold mb-2" id="modal-name"></p>
+    <p class="text-gray-600 text-sm" id="modal-original"></p>
+    <p class="text-gray-600 text-sm" id="modal-new"></p>
+    <a id="modal-download" class="mt-4 inline-block py-2 px-4 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition" href="#" download>Download</a>
+  </div>
+</div>
+
+<script>
+// Load uploaded files from sessionStorage
+const uploadedFiles = JSON.parse(sessionStorage.getItem('uploaded') || '[]');
+const main = document.querySelector('main');
+const template = document.getElementById('file-card-template');
+
+uploadedFiles.forEach(file => {
+  const clone = template.content.cloneNode(true);
+  const imgEl = clone.querySelector('.preview-img');
+  const filenameEl = clone.querySelector('.filename');
+  const sizeEl = clone.querySelector('.original-size');
+
+  imgEl.src = file.src;
+  filenameEl.textContent = file.name;
+
+  // Calculate approximate original file size in KB
+  let originalSizeKB = Math.round((file.src.length * (3/4)) / 1024);
+  sizeEl.textContent = `Approx. size: ${originalSizeKB} KB`;
+
+  main.appendChild(clone);
+});
+
+// Modal logic
+const modal = document.getElementById('modal');
+const closeModal = document.getElementById('closeModal');
+const modalImg = document.getElementById('modal-img');
+const modalName = document.getElementById('modal-name');
+const modalOriginal = document.getElementById('modal-original');
+const modalNew = document.getElementById('modal-new');
+const modalDownload = document.getElementById('modal-download');
+
+document.querySelectorAll('.file-card').forEach((card, i) => {
+  card.addEventListener('click', () => {
+    const file = uploadedFiles[i];
+    const img = new Image();
+    img.src = file.src;
+    img.onload = () => {
+      modalImg.src = file.src;
+      modalName.textContent = file.name;
+      modalOriginal.textContent = `Original dimensions: ${img.width}×${img.height}`;
+      // Simulate resized dimensions if you have resized info in file object
+      const newWidth = file.width || img.width;
+      const newHeight = file.height || img.height;
+      modalNew.textContent = `New dimensions: ${newWidth}×${newHeight}`;
+      // Set download
+      modalDownload.href = file.src;
+      modalDownload.setAttribute('download', file.name);
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    };
+  });
+});
+
+closeModal.addEventListener('click', () => {
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+});
+</script>
+</body>
+</html>

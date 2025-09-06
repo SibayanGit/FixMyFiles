@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FixMyFiles - Resize</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Tailwind CSS & Fonts -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Custom Styles -->
+<style>
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  body.bg-fade { animation: fadeIn 1.2s ease-out forwards; }
+</style>
+</head>
+<body class="m-0 p-0 font-[Montserrat] bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 bg-fade">
+
+<!-- ================= HEADER ================= -->
+<header class="fixed top-0 left-0 right-0 z-[1000] h-[70px] bg-white/90 backdrop-blur-md border-b border-black/10 flex items-center justify-between px-6 shadow-md">
+  <!-- Logo -->
+  <img src="/FixMyFIles/assets/icons/branding/logo.png" alt="FixMyFiles" class="h-[180px] w-auto">
+
+  <!-- Desktop Menu -->
+  <nav class="hidden md:flex items-center gap-[35px]">
+    <!-- Menu Items -->
+    <div class="relative group">
+      <a class="inline-block py-2 px-5 rounded-full font-semibold text-gray-800 hover:bg-black hover:text-white transition-all duration-300"><strong>CONVERT</strong></a>
+      <div class="absolute top-full left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-lg rounded-xl py-2 min-w-[190px] shadow-lg opacity-0 translate-y-2 scale-95 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-hover:pointer-events-auto">
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">PDF to DOCX</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">JPG to PNG</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">DOCX to PDF</a>
+      </div>
+    </div>
+
+    <div class="relative group">
+      <a class="inline-block py-2 px-5 rounded-full font-semibold text-gray-800 hover:bg-black hover:text-white transition-all duration-300"><strong>COMPRESS</strong></a>
+      <div class="absolute top-full left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-lg rounded-xl py-2 min-w-[190px] shadow-lg opacity-0 translate-y-2 scale-95 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-hover:pointer-events-auto">
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">Compress PDF</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">Compress Image</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">ZIP File Compressor</a>
+      </div>
+    </div>
+
+    <div class="relative group">
+      <a class="inline-block py-2 px-5 rounded-full font-semibold text-gray-800 hover:bg-black hover:text-white transition-all duration-300"><strong>EDIT</strong></a>
+      <div class="absolute top-full left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-lg rounded-xl py-2 min-w-[190px] shadow-lg opacity-0 translate-y-2 scale-95 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-hover:pointer-events-auto">
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">Merge PDF</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">Split PDF</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">Crop Image</a>
+      </div>
+    </div>
+
+    <div class="relative group">
+      <a class="inline-block py-2 px-5 rounded-full font-semibold text-gray-800 hover:bg-black hover:text-white transition-all duration-300"><strong>UTILITIES</strong></a>
+      <div class="absolute top-full left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-lg rounded-xl py-2 min-w-[190px] shadow-lg opacity-0 translate-y-2 scale-95 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-hover:pointer-events-auto">
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">TXT to DOCX</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">ZIP Extractor</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">File Converter</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Auth Buttons -->
+  <div class="hidden md:flex gap-3">
+    <a href="login.html" class="py-2 px-5 bg-transparent border-2 border-blue-600 text-blue-600 rounded-full font-bold text-sm hover:bg-blue-600 hover:text-white transition">Login</a>
+    <a href="signup.html" class="py-2 px-5 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-full font-bold text-sm hover:from-blue-800 hover:to-blue-900 transition">Sign Up</a>
+  </div>
+
+  <!-- Mobile Hamburger -->
+  <button id="menu-btn" class="md:hidden flex flex-col gap-1.5 w-8 cursor-pointer">
+    <span class="h-[3px] w-full bg-black rounded"></span>
+    <span class="h-[3px] w-full bg-black rounded"></span>
+    <span class="h-[3px] w-full bg-black rounded"></span>
+  </button>
+</header>
+
+<!-- ================= MAIN PANEL ================= -->
+<div id="resize-panel" class="mt-24 flex gap-6 w-full">
+
+  <!-- Sidebar: Resize Settings + Top Buttons -->
+<div class="w-[350px] h-[790px] bg-white rounded-2xl shadow-lg p-6 border border-gray-100 flex flex-col gap-4">
+
+    <!-- Top Buttons: Add / Clear -->
+    <div class="flex gap-3 justify-center mb-4">
+      <button id="addImagesBtn" class="group w-12 h-12 flex items-center justify-center rounded-lg bg-gray-200 hover:bg-gray-400 shadow transition-colors">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"
+         xmlns="http://www.w3.org/2000/svg" 
+         class="text-gray-700 group-hover:text-blue-600 pointer-events-none">
+      <path d="M9.99988 0C9.27318 0 8.68411 0.589098 8.68411 1.31577V8.68414H1.31577C0.589098 8.68414 0 9.27321 0 9.99992C0 10.7266 0.589098 11.3157 1.31577 11.3157H8.68411V18.684C8.68411 19.4107 9.27318 19.9998 9.99988 19.9998C10.7266 19.9998 11.3157 19.4107 11.3157 18.684V11.3157H18.684C19.4107 11.3157 19.9998 10.7266 19.9998 9.99992C19.9998 9.27321 19.4107 8.68414 18.684 8.68414H11.3157V1.31577C11.3157 0.589098 10.7266 0 9.99988 0Z"></path>
+    </svg>
+      </button>
+      <input type="file" id="imageInput" accept="image/*" multiple class="hidden">
+
+      <button id="clearAllBtn" class="group w-12 h-12 flex items-center justify-center rounded-lg bg-gray-200 hover:bg-gray-400 shadow transition-colors">
+    <svg fill="currentColor" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" 
+      class="w-6 h-6 text-gray-700 group-hover:text-red-600 pointer-events-none">
+      <path d="M831.24 280.772c5.657 0 10.24-4.583 10.24-10.24v-83.528c0-5.657-4.583-10.24-10.24-10.24H194.558a10.238 10.238 0 00-10.24 10.24v83.528c0 5.657 4.583 10.24 10.24 10.24H831.24zm0 40.96H194.558c-28.278 0-51.2-22.922-51.2-51.2v-83.528c0-28.278 22.922-51.2 51.2-51.2H831.24c28.278 0 51.2 22.922 51.2 51.2v83.528c0 28.278-22.922 51.2-51.2 51.2z"></path>
+      <path d="M806.809 304.688l-58.245 666.45c-.544 6.246-6.714 11.9-12.99 11.9H290.226c-6.276 0-12.447-5.654-12.99-11.893L218.99 304.688c-.985-11.268-10.917-19.604-22.185-18.619s-19.604 10.917-18.619 22.185l58.245 666.45c2.385 27.401 26.278 49.294 53.795 49.294h445.348c27.517 0 51.41-21.893 53.796-49.301l58.244-666.443c.985-11.268-7.351-21.201-18.619-22.185s-21.201 7.351-22.185 18.619zM422.02 155.082V51.3c0-5.726 4.601-10.342 10.24-10.342h161.28c5.639 0 10.24 4.617 10.24 10.342v103.782c0 11.311 9.169 20.48 20.48 20.48s20.48-9.169 20.48-20.48V51.3c0-28.316-22.908-51.302-51.2-51.302H432.26c-28.292 0-51.2 22.987-51.2 51.302v103.782c0 11.311 9.169 20.48 20.48 20.48s20.48-9.169 20.48-20.48z"></path>
+      <path d="M496.004 410.821v460.964c0 11.311 9.169 20.48 20.48 20.48s20.48-9.169 20.48-20.48V410.821c0-11.311-9.169-20.48-20.48-20.48s-20.48 9.169-20.48 20.48zm-192.435 1.767l39.936 460.964c.976 11.269 10.903 19.612 22.171 18.636s19.612-10.903 18.636-22.171l-39.936-460.964c-.976-11.269-10.903-19.612-22.171-18.636s-19.612 10.903-18.636 22.171zm377.856-3.535l-39.936 460.964c-.976 11.269 7.367 21.195 18.636 22.171s21.195-7.367 22.171-18.636l39.936-460.964c.976-11.269-7.367-21.195-18.636-22.171s-21.195-7.367-22.171-18.636z"></path>
+    </svg>
+      </button>
+    </div>
+
+    <!-- Resize Settings -->
+    <h3 class="text-lg font-semibold mb-4 text-gray-900">Resize Settings</h3>
+    <input type="number" id="widthInput" placeholder="Width" class="w-full border rounded-lg px-3 py-2 mb-4 focus:ring-2 focus:ring-blue-500">
+    <input type="number" id="heightInput" placeholder="Height" class="w-full border rounded-lg px-3 py-2 mb-4 focus:ring-2 focus:ring-blue-500">
+    <select id="unitSelect" class="w-full border rounded-lg px-3 py-2 mb-4 focus:ring-2 focus:ring-blue-500">
+      <option value="px">Pixels (px)</option>
+      <option value="cm">Centimeters (cm)</option>
+      <option value="inch">Inches (in)</option>
+    </select>
+    <button id="resizeBtn" class="w-full px-6 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-medium shadow hover:from-blue-700 hover:to-blue-800 transition">Resize & Export</button>
+  </div>
+
+<!-- Right: Preview + Info + Uploaded Images -->
+<div class="flex-1 flex gap-6">
+
+    <!-- Preview Panel -->
+    <div class="bg-white w-[1200px] rounded-2xl shadow-lg p-6 border border-gray-100 text-center">
+      <h3 class="text-lg font-semibold mb-4 text-gray-900">Preview</h3>
+
+      <!-- Toolbar -->
+      <div class="flex justify-center gap-3 mb-3">
+        <button id="cropBtn" class="p-3 rounded-lg bg-green-500 text-white hover:bg-green-600 transition">
+        <svg viewBox="0 0 24 24" fill="none" 
+             xmlns="http://www.w3.org/2000/svg" 
+             class="w-6 h-6">
+          <path d="M6 3V14.8C6 15.9201 6 16.4802 6.21799 16.908C6.40973 17.2843 6.71569 17.5903 7.09202 17.782C7.51984 18 8.0799 18 9.2 18H15M21 18H18M18 21V9.2C18 8.0799 18 7.51984 17.782 7.09202C17.5903 6.71569 17.2843 6.40973 16.908 6.21799C16.4802 6 15.9201 6 14.8 6H9M3 6H6" 
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>        </button>
+        <button id="rotateBtn" class="p-3 rounded-lg bg-orange-500 text-white hover:bg-orange-600 transition">
+        <svg viewBox="0 0 24 24" fill="none" 
+             xmlns="http://www.w3.org/2000/svg" 
+             class="w-6 h-6">
+          <path d="M11.5 20.5C6.80558 20.5 3 16.6944 3 12C3 7.30558 6.80558 3.5 11.5 3.5C16.1944 3.5 20 7.30558 20 12C20 13.5433 19.5887 14.9905 18.8698 16.238M22.5 15L18.8698 16.238M17.1747 12.3832L18.5289 16.3542L18.8698 16.238" 
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>        </button>
+        <button id="infoBtn" class="p-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition">
+        <svg viewBox="0 0 24 24" fill="none" 
+             xmlns="http://www.w3.org/2000/svg" 
+             class="w-6 h-6">
+          <path fill-rule="evenodd" clip-rule="evenodd" 
+                d="M12 7C12.8284 7 13.5 6.32843 13.5 5.5C13.5 4.67157 12.8284 4 12 4C11.1716 4 10.5 4.67157 10.5 5.5C10.5 6.32843 11.1716 7 12 7ZM11 9C10.4477 9 10 9.44772 10 10C10 10.5523 10.4477 11 11 11V19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19V10C13 9.44772 12.5523 9 12 9H11Z" 
+                fill="currentColor"/>
+        </svg>
+        </button>
+      </div>
+
+      <!-- Canvas -->
+      <div class="flex items-center justify-center">
+        <div class="max-w-[400px] max-h-[400px] overflow-auto border rounded-lg bg-gray-50 p-2 shadow-sm relative">
+          <canvas id="previewCanvas" class="max-w-full max-h-full mx-auto block"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Panel -->
+    <div id="infoPanel" class="hidden bg-gray-50 rounded-lg shadow p-4 text-left">
+      <p><strong>Name:</strong> <span id="infoName"></span></p>
+      <p><strong>Width:</strong> <span id="infoWidth"></span> px</p>
+      <p><strong>Height:</strong> <span id="infoHeight"></span> px</p>
+      <p><strong>Size:</strong> <span id="infoSize"></span></p>
+      <button id="closeInfo" class="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">Close</button>
+    </div>
+
+    <!-- Uploaded Images -->
+<div class="bg-white w-[350px] rounded-2xl shadow-lg p-6 border border-gray-100">
+      <h3 class="text-lg font-semibold mb-4 text-gray-900">Uploaded Images</h3>
+      <div id="image-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================= MODALS ================= -->
+<!-- Crop Modal -->
+<div id="cropModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[2000]">
+  <div class="bg-white rounded-xl shadow-lg w-[90%] max-w-5xl flex overflow-hidden">
+    <!-- Left: Crop Canvas -->
+    <div class="flex-1 p-4 flex items-center justify-center bg-gray-100">
+      <canvas id="cropCanvas" class="border rounded-lg shadow-md"></canvas>
+    </div>
+    <!-- Right: Controls -->
+    <div class="w-[280px] bg-white p-5 border-l border-gray-200 flex flex-col">
+      <h3 class="text-lg font-semibold mb-4">Crop Rectangle</h3>
+      <label>Width</label><input type="number" id="cropWidth" class="w-full border rounded px-2 py-1 mb-3">
+      <label>Height</label><input type="number" id="cropHeight" class="w-full border rounded px-2 py-1 mb-3">
+    
+
+      <h3 class="text-lg font-semibold mb-4 mt-4">Crop Position</h3>
+      <label>Position (X)</label><input type="number" id="cropX" class="w-full border rounded px-2 py-1 mb-3">
+      <label>Position (Y)</label><input type="number" id="cropY" class="w-full border rounded px-2 py-1 mb-3">
+      <div class="mt-auto flex justify-between gap-2 pt-4 border-t">
+        <button id="applyCrop" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Crop</button>
+        <button id="resetCrop" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Reset</button>
+        <button id="closeCrop" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Rotate Modal -->
+<div id="rotateModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-xl p-6 w-[90%] max-w-[400px]">
+    <h3 class="text-lg font-semibold mb-4">Rotate Image</h3>
+    <input type="number" id="rotateAngle" placeholder="Degrees" class="w-full border rounded px-3 py-2 mb-4 focus:ring-2 focus:ring-blue-500">
+    <div class="flex justify-end gap-3">
+      <button id="applyRotate" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Apply</button>
+      <button id="closeRotate" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+  // =================== Load Uploaded Images ===================
+  const imageList = document.getElementById('image-list');
+  let images = JSON.parse(sessionStorage.getItem('uploaded') || '[]');
+  if (!images.length) {
+    alert("No uploaded images found! Redirecting to upload page.");
+    window.location.href = 'upload.html';
+  }
+
+  let currentImg = null;
+  const canvas = document.getElementById('previewCanvas');
+  const ctx = canvas.getContext('2d');
+  const widthInput = document.getElementById('widthInput');
+  const heightInput = document.getElementById('heightInput');
+  const unitSelect = document.getElementById('unitSelect');
+
+  function unitToPx(value, unit) {
+    if (unit === 'px') return value;
+    if (unit === 'cm') return value * 37.795;
+    if (unit === 'inch') return value * 96;
+    return value;
+  }
+
+  function showPreview() {
+    if (!currentImg) return;
+    const w = unitToPx(parseFloat(widthInput.value), unitSelect.value) || currentImg.width;
+    const h = unitToPx(parseFloat(heightInput.value), unitSelect.value) || currentImg.height;
+    canvas.width = w;
+    canvas.height = h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(currentImg, 0, 0, w, h);
+  }
+
+  // =================== Display Thumbnails ===================
+  images.forEach((imgObj, index) => {
+    const imgEl = document.createElement('img');
+    imgEl.src = imgObj.src;
+    imgEl.alt = imgObj.name;
+    imgEl.className = 'cursor-pointer border rounded-lg hover:ring-2 hover:ring-blue-500';
+    imgEl.addEventListener('click', () => {
+      currentImg = new Image();
+      currentImg.src = imgObj.src;
+      currentImg.onload = () => {
+        widthInput.value = currentImg.width;
+        heightInput.value = currentImg.height;
+        showPreview();
+      };
+    });
+    imageList.appendChild(imgEl);
+  });
+
+  // Select first image by default
+  if (images.length) {
+    currentImg = new Image();
+    currentImg.src = images[0].src;
+    currentImg.onload = () => {
+      widthInput.value = currentImg.width;
+      heightInput.value = currentImg.height;
+      showPreview();
+    };
+  }
+
+  // =================== Input & Unit Events ===================
+  widthInput.addEventListener('input', showPreview);
+  heightInput.addEventListener('input', showPreview);
+  unitSelect.addEventListener('change', showPreview);
+
+  // =================== Resize & Export ===================
+  document.getElementById('resizeBtn').addEventListener('click', () => {
+    if (!currentImg) return;
+
+    const w = parseFloat(widthInput.value);
+    const h = parseFloat(heightInput.value);
+    if (!w || !h) { alert("Enter valid width and height"); return; }
+
+    const widthPx = unitToPx(w, unitSelect.value);
+    const heightPx = unitToPx(h, unitSelect.value);
+
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = widthPx;
+    tempCanvas.height = heightPx;
+    const tCtx = tempCanvas.getContext('2d');
+    tCtx.drawImage(currentImg, 0, 0, widthPx, heightPx);
+
+    const dataURL = tempCanvas.toDataURL('image/png');
+
+    // Direct download
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = currentImg.name || 'image.png';
+    link.click();
+
+    // Update preview
+    currentImg.src = dataURL;
+    widthInput.value = widthPx;
+    heightInput.value = heightPx;
+    showPreview();
+  });
+
+  // =================== Clear All ===================
+  document.getElementById('clearAllBtn').addEventListener('click', () => {
+    images = [];
+    currentImg = null;
+    sessionStorage.removeItem('uploaded');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    imageList.innerHTML = '';
+  });
+
+  // =================== Info Panel ===================
+  const infoPanel = document.getElementById('infoPanel');
+  const infoName = document.getElementById('infoName');
+  const infoWidth = document.getElementById('infoWidth');
+  const infoHeight = document.getElementById('infoHeight');
+  const infoSize = document.getElementById('infoSize');
+
+  document.getElementById('infoBtn').addEventListener('click', () => {
+    if (!currentImg) return;
+    infoName.textContent = currentImg.name || 'Unknown';
+    infoWidth.textContent = currentImg.width;
+    infoHeight.textContent = currentImg.height;
+    infoSize.textContent = 'N/A';
+    infoPanel.classList.remove('hidden');
+  });
+  document.getElementById('closeInfo').addEventListener('click', () => infoPanel.classList.add('hidden'));
+
+ // ================= Crop =================
+const cropModal = document.getElementById('cropModal');
+const cropCanvas = document.getElementById('cropCanvas');
+const cropCtx = cropCanvas.getContext('2d');
+
+let isDragging = false,
+    isResizing = false,
+    dragOffsetX = 0,
+    dragOffsetY = 0,
+    resizeHandle = null;
+
+let selection = { x: 50, y: 50, w: 200, h: 200 };
+const handleSize = 10;
+
+function getHandles() {
+  const { x, y, w, h } = selection;
+  return [
+    { x, y, cursor: 'nw-resize' },
+    { x: x + w, y, cursor: 'ne-resize' },
+    { x, y: y + h, cursor: 'sw-resize' },
+    { x: x + w, y: y + h, cursor: 'se-resize' }
+  ];
+}
+
+function drawCropOverlay() {
+  if (!currentImg) return;
+
+  cropCtx.clearRect(0, 0, cropCanvas.width, cropCanvas.height);
+
+  // Scale image to fit canvas
+  const scale = Math.min(cropCanvas.width / currentImg.width, cropCanvas.height / currentImg.height);
+  const imgWidth = currentImg.width * scale;
+  const imgHeight = currentImg.height * scale;
+  const offsetX = (cropCanvas.width - imgWidth) / 2;
+  const offsetY = (cropCanvas.height - imgHeight) / 2;
+
+  cropCtx.drawImage(currentImg, offsetX, offsetY, imgWidth, imgHeight);
+
+  // Draw semi-transparent overlay around selection
+  cropCtx.fillStyle = 'rgba(0,0,0,0.4)';
+  // top
+  cropCtx.fillRect(0, 0, cropCanvas.width, selection.y);
+  // left
+  cropCtx.fillRect(0, selection.y, selection.x, selection.h);
+  // right
+  cropCtx.fillRect(selection.x + selection.w, selection.y, cropCanvas.width - (selection.x + selection.w), selection.h);
+  // bottom
+  cropCtx.fillRect(0, selection.y + selection.h, cropCanvas.width, cropCanvas.height - (selection.y + selection.h));
+
+// Draw selection border
+cropCtx.lineWidth = 1;           // thin line
+cropCtx.setLineDash([4]);        // smaller dash
+cropCtx.strokeStyle = 'black';   // outer black
+cropCtx.strokeRect(selection.x, selection.y, selection.w, selection.h);
+
+cropCtx.strokeStyle = 'white';   // inner white
+cropCtx.strokeRect(selection.x + 0.5, selection.y + 0.5, selection.w - 1, selection.h - 1);
+
+
+  // Draw handles
+  cropCtx.fillStyle = 'rgba(255,255,255,0.9)';
+  cropCtx.strokeStyle = 'black';
+  cropCtx.setLineDash([]);
+  getHandles().forEach(h => {
+    cropCtx.fillRect(h.x - handleSize / 2, h.y - handleSize / 2, handleSize, handleSize);
+    cropCtx.strokeRect(h.x - handleSize / 2, h.y - handleSize / 2, handleSize, handleSize);
+  });
+}
+
+document.getElementById('cropBtn').addEventListener('click', () => {
+  if (!currentImg) return;
+
+  cropCanvas.width = 480;
+  cropCanvas.height = 480;
+
+  const selSize = 250;
+  selection = {
+    x: (cropCanvas.width - selSize) / 2,
+    y: (cropCanvas.height - selSize) / 2,
+    w: selSize,
+    h: selSize
+  };
+
+  drawCropOverlay();
+  cropModal.classList.remove('hidden');
+});
+
+cropCanvas.onmousedown = e => {
+  const rect = cropCanvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+
+  for (let h of getHandles()) {
+    if (mx >= h.x - handleSize && mx <= h.x + handleSize &&
+        my >= h.y - handleSize && my <= h.y + handleSize) {
+      isResizing = true;
+      resizeHandle = h.cursor;
+      return;
+    }
+  }
+
+  if (mx >= selection.x && mx <= selection.x + selection.w &&
+      my >= selection.y && my <= selection.y + selection.h) {
+    isDragging = true;
+    dragOffsetX = mx - selection.x;
+    dragOffsetY = my - selection.y;
+  }
+};
+
+cropCanvas.onmousemove = e => {
+  const rect = cropCanvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+
+  // Update cursor
+  cropCanvas.style.cursor = 'default';
+  getHandles().forEach(h => {
+    if (mx >= h.x - handleSize && mx <= h.x + handleSize &&
+        my >= h.y - handleSize && my <= h.y + handleSize) cropCanvas.style.cursor = h.cursor;
+  });
+  if (mx >= selection.x && mx <= selection.x + selection.w &&
+      my >= selection.y && my <= selection.y + selection.h) cropCanvas.style.cursor = 'move';
+
+  // Drag selection
+  if (isDragging) {
+    selection.x = mx - dragOffsetX;
+    selection.y = my - dragOffsetY;
+    drawCropOverlay();
+  }
+
+  // Resize selection
+  if (isResizing) {
+    switch(resizeHandle) {
+      case 'nw-resize':
+        selection.w += selection.x - mx;
+        selection.h += selection.y - my;
+        selection.x = mx;
+        selection.y = my;
+        break;
+      case 'ne-resize':
+        selection.w = mx - selection.x;
+        selection.h += selection.y - my;
+        selection.y = my;
+        break;
+      case 'sw-resize':
+        selection.w += selection.x - mx;
+        selection.h = my - selection.y;
+        selection.x = mx;
+        break;
+      case 'se-resize':
+        selection.w = mx - selection.x;
+        selection.h = my - selection.y;
+        break;
+    }
+    drawCropOverlay();
+  }
+};
+
+cropCanvas.onmouseup = () => { isDragging = false; isResizing = false; resizeHandle = null; };
+
+document.getElementById('applyCrop').onclick = () => {
+  const scaleX = currentImg.width / cropCanvas.width;
+  const scaleY = currentImg.height / cropCanvas.height;
+
+  const sx = Math.max(0, selection.x * scaleX);
+  const sy = Math.max(0, selection.y * scaleY);
+  const sw = Math.min(currentImg.width, selection.w * scaleX);
+  const sh = Math.min(currentImg.height, selection.h * scaleY);
+
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = sw;
+  tempCanvas.height = sh;
+  const tCtx = tempCanvas.getContext('2d');
+  tCtx.drawImage(currentImg, sx, sy, sw, sh, 0, 0, sw, sh);
+
+  const croppedImg = new Image();
+  croppedImg.src = tempCanvas.toDataURL();
+  croppedImg.onload = () => {
+    currentImg = croppedImg;
+    widthInput.value = currentImg.width;
+    heightInput.value = currentImg.height;
+    showPreview();
+    cropModal.classList.add('hidden');
+  };
+};
+
+document.getElementById('closeCrop').onclick = () => cropModal.classList.add('hidden');
+
+  // ================= Rotate =================
+  const rotateModal = document.getElementById('rotateModal');
+  const rotateInput = document.getElementById('rotateAngle');
+
+  document.getElementById('rotateBtn').addEventListener('click', () => {
+    if (!currentImg) return;
+    rotateInput.value = 0;
+    rotateModal.classList.remove('hidden');
+  });
+
+  document.getElementById('closeRotate').addEventListener('click', () => rotateModal.classList.add('hidden'));
+
+  document.getElementById('applyRotate').addEventListener('click', () => {
+    const angle = parseFloat(rotateInput.value) || 0;
+    const radians = angle * Math.PI / 180;
+    const tempCanvas = document.createElement('canvas');
+    const tCtx = tempCanvas.getContext('2d');
+    const w = currentImg.width;
+    const h = currentImg.height;
+    tempCanvas.width = w;
+    tempCanvas.height = h;
+
+    tCtx.clearRect(0, 0, w, h);
+    tCtx.save();
+    tCtx.translate(w/2, h/2);
+    tCtx.rotate(radians);
+    tCtx.drawImage(currentImg, -w/2, -h/2);
+    tCtx.restore();
+
+    const rotatedImg = new Image();
+    rotatedImg.src = tempCanvas.toDataURL();
+    rotatedImg.onload = () => {
+      currentImg = rotatedImg;
+      widthInput.value = currentImg.width;
+      heightInput.value = currentImg.height;
+      showPreview();
+      rotateModal.classList.add('hidden');
+    };
+  });
+</script>
+
+
+
+
+</body>
+</html>

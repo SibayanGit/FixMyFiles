@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FixMyFiles - Premium Navbar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+  <style>
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    body.bg-fade { animation: fadeIn 1.2s ease-out forwards; }
+
+    /* Fade out animation for yellow section */
+    .fade-out {
+      animation: fadeOut 0.5s forwards;
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; height: 0; margin: 0; padding: 0; overflow: hidden; }
+    }
+  </style>
+
+<body class="m-0 p-0 h-full font-[Montserrat] overflow-x-hidden bg-cover bg-no-repeat bg-fade"
+      style="background-image: url('./assets/icons/interface/'); background-size: 120%;">
+
+<!-- HEADER -->
+<header class="w-full h-[70px] fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md border-b border-black/10 flex items-center justify-between px-6 z-[1000] shadow-md">
+  <!-- Brand -->
+  <a href="/" title="FixMyFiles">
+    <img src="/FixMyFIles/assets/icons/branding/logo.png" alt="FixMyFiles" class="h-[180px] w-auto" />
+  </a>
+
+  <!-- Desktop Menu -->
+  <nav class="hidden md:flex items-center gap-[35px]">
+    <!-- Convert -->
+    <div class="relative group">
+      <a class="inline-block py-2 px-5 rounded-full transition-all duration-300 font-semibold text-gray-800 cursor-pointer hover:bg-black hover:text-white">
+        <strong>CONVERT</strong>
+      </a>
+      <div class="absolute top-full left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-lg rounded-xl py-2 min-w-[190px] shadow-lg opacity-0 translate-y-2 scale-95 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-hover:pointer-events-auto">
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">PDF to DOCX</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">JPG to PNG</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">DOCX to PDF</a>
+      </div>
+    </div>
+
+    <!-- Compress -->
+    <div class="relative group">
+      <a class="inline-block py-2 px-5 rounded-full transition-all duration-300 font-semibold text-gray-800 cursor-pointer hover:bg-black hover:text-white">
+        <strong>COMPRESS</strong>
+      </a>
+      <div class="absolute top-full left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-lg rounded-xl py-2 min-w-[190px] shadow-lg opacity-0 translate-y-2 scale-95 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-hover:pointer-events-auto">
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">Compress PDF</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">Compress Image</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">ZIP File Compressor</a>
+      </div>
+    </div>
+
+    <!-- Edit -->
+    <div class="relative group">
+      <a class="inline-block py-2 px-5 rounded-full transition-all duration-300 font-semibold text-gray-800 cursor-pointer hover:bg-black hover:text-white">
+        <strong>EDIT</strong>
+      </a>
+      <div class="absolute top-full left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-lg rounded-xl py-2 min-w-[190px] shadow-lg opacity-0 translate-y-2 scale-95 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-hover:pointer-events-auto">
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">Merge PDF</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">Split PDF</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">Crop Image</a>
+      </div>
+    </div>
+
+    <!-- Utilities -->
+    <div class="relative group">
+      <a class="inline-block py-2 px-5 rounded-full transition-all duration-300 font-semibold text-gray-800 cursor-pointer hover:bg-black hover:text-white">
+        <strong>UTILITIES</strong>
+      </a>
+      <div class="absolute top-full left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-lg rounded-xl py-2 min-w-[190px] shadow-lg opacity-0 translate-y-2 scale-95 pointer-events-none transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-hover:pointer-events-auto">
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">TXT to DOCX</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">ZIP Extractor</a>
+        <a href="#" class="block px-5 py-2 hover:bg-blue-500/10 hover:text-blue-600 transition">File Converter</a>
+      </div>
+    </div>
+  </nav>
+
+  
+
+  <!-- Desktop Auth Buttons -->
+  <div class="hidden md:flex gap-3">
+    <a href="login.html" class="py-2 px-5 bg-transparent border-2 border-blue-600 text-blue-600 rounded-full font-bold text-sm transition-all duration-300 hover:bg-blue-600 hover:text-white hover:shadow-lg text-center">Login</a>
+    <a href="signup.html" class="py-2 px-5 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-full font-bold text-sm transition-all duration-300 hover:from-blue-800 hover:to-blue-900 hover:-translate-y-[1px] hover:shadow-lg text-center">Sign Up</a>
+  </div>
+
+  <!-- Mobile Hamburger -->
+  <button id="menu-btn" class="md:hidden flex flex-col gap-1.5 w-8 cursor-pointer" aria-label="Toggle menu">
+    <span class="h-[3px] w-full bg-black rounded"></span>
+    <span class="h-[3px] w-full bg-black rounded"></span>
+    <span class="h-[3px] w-full bg-black rounded"></span>
+  </button>
+</header>
+
+
+<!-- Hero Section -->
+<section class="text-center mt-24 py-12 px-4">
+  <h2 class="text-4xl font-bold text-gray-800 mb-2">Resize Your Images Instantly</h2>
+  <p class="text-gray-600 mb-6">Make your images the perfect size, fast and easy.</p>
+</section>
+
+<main class="mx-auto px-6 flex justify-center">
+
+  <!-- Yellow Upload Container -->
+  <div id="upload-container" class="bg-yellow-500 rounded-lg shadow-lg flex flex-col items-center text-white relative w-[1136px] h-[300px] p-3">
+
+    <!-- File Upload Area -->
+    <div id="drop-area" class="w-full h-full bg-yellow-500 border-2 border-dashed border-yellow-300 rounded-lg p-4 text-center cursor-pointer hover:border-yellow-400 transition relative flex flex-col justify-center">
+
+      <!-- Custom SVG Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 32" fill="#ffffff" width="48" height="48" class="mx-auto mt--8 mb-10">
+        <path d="M21.5,0h-13H8.369H7.685C7.56,0,7.44,0.047,7.348,0.131L7.262,0.209c-0.144,0.07-0.284,0.157-0.41,0.281
+          L4.364,2.857L0.163,6.694C0.059,6.789,0,6.923,0,7.063V7.5v0.268V25.5C0,26.327,0.673,27,1.5,27h20c0.827,0,1.5-0.673,1.5-1.5
+          v-24C23,0.673,22.327,0,21.5,0z M1.463,6.996l3.584-3.41L7.802,1.07C7.862,1.051,7.922,1.031,8,1.021V7H1.459
+          C1.46,6.999,1.462,6.997,1.463,6.996z M22,25.5c0,0.275-0.224,0.5-0.5,0.5h-20C1.224,26,1,25.775,1,25.5V8h7.5
+          C8.776,8,9,7.776,9,7.5V1h12.5C21.776,1,22,1.225,22,1.5V25.5z"/>
+        <path d="M26.5,31h-20C6.224,31,6,30.775,6,30.5v-0.604c0-0.276-0.224-0.5-0.5-0.5S5,29.62,5,29.896V30.5
+          C5,31.327,5.673,32,6.5,32h20c0.827,0,1.5-0.673,1.5-1.5v-24C28,5.673,27.327,5,26.5,5h-0.792c-0.276,0-0.5,0.224-0.5,0.5
+          s0.224,0.5,0.5,0.5H26.5C26.776,6,27,6.225,27,6.5v24C27,30.775,26.776,31,26.5,31z"/>
+        <path d="M18,11H5c-0.276,0-0.5,0.224-0.5,0.5S4.724,12,5,12h13c0.276,0,0.5-0.224,0.5-0.5S18.276,11,18,11z"/>
+        <path d="M18,15H5c-0.276,0-0.5,0.224-0.5,0.5S4.724,16,5,16h13c0.276,0,0.5-0.224,0.5-0.5S18.276,15,18,15z"/>
+        <path d="M18,19H5c-0.276,0-0.5,0.224-0.5,0.5S4.724,20,5,20h13c0.276,0,0.5-0.224,0.5-0.5S18.276,19,18,19z"/>
+      </svg>
+
+<!-- File Select Button -->
+<label class="w-[180px] h-[54px] bg-white text-gray-900 flex items-center justify-center gap-2 rounded cursor-pointer border border-gray-300 hover:bg-gray-100 mx-auto -mt-4">
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       viewBox="0 0 24 24" 
+       fill="none" 
+       stroke="currentColor" 
+       stroke-width="2" 
+       stroke-linecap="round" 
+       stroke-linejoin="round" 
+       class="w-6 h-6 text-gray-700">
+    <!-- Plus sign -->
+    <path d="M16,19h4m-2-2v4M8,13h6m0-4H8"/>
+    <!-- File shape -->
+    <path d="M18,13V5L16,3H5A1,1,0,0,0,4,4V20a1,1,0,0,0,1,1h7"/>
+    <!-- Folded corner -->
+    <polygon points="16 3 16 5 18 5 16 3"/>
+  </svg>
+  <span class="text-sm font-[Montserrat]"><b>SELECT IMAGES</b></span>
+  <input type="file" id="imageInput" accept="image/*" class="hidden">
+</label>
+
+<p class="text-white mb-0 mt-6">or drop your images here</p>
+
+    </div>
+  </div>
+</main>
+
+<script>
+const dropArea = document.getElementById('drop-area');
+const imageInput = document.getElementById('imageInput');
+
+function handleFiles(files) {
+  const images = [];
+  Array.from(files).forEach(file => {
+    if(!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      images.push({ name: file.name, src: e.target.result });
+      if(images.length === files.length){
+        sessionStorage.setItem('uploaded', JSON.stringify(images));
+        window.location.href = 'resize.html';
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+dropArea.addEventListener('dragover', e => { e.preventDefault(); dropArea.classList.add('border-yellow-700'); });
+dropArea.addEventListener('dragleave', e => { e.preventDefault(); dropArea.classList.remove('border-yellow-700'); });
+dropArea.addEventListener('drop', e => { e.preventDefault(); dropArea.classList.remove('border-yellow-700'); handleFiles(e.dataTransfer.files); });
+imageInput.addEventListener('change', e => { handleFiles(e.target.files); });
+</script>
+</body>
+</html>

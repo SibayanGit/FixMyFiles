@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FixMyFiles - Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <form id="login-form" class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm relative">
+    <h2 class="text-2xl font-bold mb-6 text-center">Login to FixMyFiles</h2>
+
+    <label for="email" class="block text-sm font-semibold mb-1">Email</label>
+    <input id="email" type="email" required placeholder="Enter your email" class="w-full p-3 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+    <label for="password" class="block text-sm font-semibold mb-1">Password</label>
+    <div class="relative mb-6">
+      <input id="password" type="password" required placeholder="Enter your password" class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <button type="button" id="toggle-password" class="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer" aria-label="Show password">
+        <img id="eye-icon" src="./assets/icons/passwordtoggle/eye.svg" alt="Show password" class="h-5 w-5 block" />
+        <img id="eye-off-icon" src="./assets/icons/passwordtoggle/eye-off.svg" alt="Hide password" class="h-5 w-5 hidden" />
+      </button>
+    </div>
+
+    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700 transition">Login</button>
+
+    <p class="mt-4 text-center text-sm">
+      Don't have an account?
+      <a href="./signup.html" class="text-blue-600 hover:underline">Sign Up</a>
+    </p>
+
+    <p id="error-message" class="text-red-600 text-center mt-3 hidden"></p>
+  </form>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBdKecshuNN-RTjbc_DLH7pBJVfy4HqhzY",
+      authDomain: "fixmyfilessd.firebaseapp.com",
+      projectId: "fixmyfilessd",
+      storageBucket: "fixmyfilessd.firebasestorage.app",
+      messagingSenderId: "556712155327",
+      appId: "1:556712155327:web:c71604c6a425e3c8b04e0a"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    const togglePasswordBtn = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eye-icon');
+    const eyeOffIcon = document.getElementById('eye-off-icon');
+
+    function setInitialToggleState() {
+      passwordInput.type = 'password';
+      eyeIcon.classList.remove('hidden');
+      eyeOffIcon.classList.add('hidden');
+      togglePasswordBtn.setAttribute('aria-label', 'Show password');
+    }
+    setInitialToggleState();
+
+    togglePasswordBtn.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.classList.add('hidden');
+        eyeOffIcon.classList.remove('hidden');
+        togglePasswordBtn.setAttribute('aria-label', 'Hide password');
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('hidden');
+        eyeOffIcon.classList.add('hidden');
+        togglePasswordBtn.setAttribute('aria-label', 'Show password');
+      }
+    });
+
+    const loginForm = document.getElementById('login-form');
+    const errorMessage = document.getElementById('error-message');
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errorMessage.classList.add('hidden');
+      const email = loginForm.email.value.trim();
+      const password = loginForm.password.value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = './index.html';
+        })
+        .catch(error => {
+          errorMessage.textContent = error.message;
+          errorMessage.classList.remove('hidden');
+        });
+    });
+  </script>
+</body>
+</html>
